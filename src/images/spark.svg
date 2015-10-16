@@ -1,0 +1,24 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="135px" height="135px" viewBox="0 0 135 135">
+<defs>
+<radialGradient id="Gradient_1" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="10.3" fx="0" fy="0" gradientTransform="matrix( 0.9999999999999999, 0, 0, 0.9999999999999999, 0,0) " spreadMethod="pad">
+<stop  offset="11.764705882352942%" stop-color="#FFFFFF"/>
+
+<stop  offset="30.19607843137255%" stop-color="#EFEFEF"/>
+
+<stop  offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+</radialGradient>
+
+<g id="Symbol_1_0_Layer0_0_FILL">
+<path fill="url(#Gradient_1)" stroke="none" d="
+M 7.05 -7.1
+Q 4.1 -10 0 -10 -4.15 -10 -7.1 -7.1 -10 -4.15 -10 0 -10 4.1 -7.1 7.05 -4.15 10 0 10 4.1 10 7.05 7.05 8.35 5.7 9.1 4.15 10 2.25 10 0 10 -2.3 9.1 -4.15 8.35 -5.75 7.05 -7.1 Z"/>
+</g>
+</defs>
+
+<g transform="matrix( 6.7500457763671875, 0, 0, 6.7500457763671875, 67.5,67.5) ">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Symbol_1_0_Layer0_0_FILL"/>
+</g>
+</g>
+</svg>
