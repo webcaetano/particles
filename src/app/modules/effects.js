@@ -4,7 +4,6 @@ var _ = require('lodash');
 module.exports = function(scope){
 	var self = {};
 
-	// self.particles = function(options.targetX, options.targetY, options.sparkNumber, options.distance, optiions.sparkSize){
 	self.particles = function(options){
 		var defaults = {
 			target:{x:0,y:0},
@@ -31,7 +30,9 @@ module.exports = function(scope){
 
 		var sparks = [];
 
-		for(var i=0;i<options.qnt;i++) sparks.push(scope.game.add.sprite(0,0,'spark'));
+		var particles = scope.game.add.group();
+
+		for(var i=0;i<options.qnt;i++) sparks.push(particles.add(scope.game.add.sprite(0,0,'spark')));
 
 		_.each(sparks,function(spark){
 			spark.x = options.target.x+utils.rand(0,options.distance)-(options.distance/2);
@@ -56,6 +57,81 @@ module.exports = function(scope){
 				sparks.slice(sparks.indexOf(spark),1);
 			},options.duration*1000)
 		})
+		return particles;
+	}
+
+	// var ax = 99;
+	// setInterval(function(){
+	// 	ax++;
+	// },200);
+
+	// self.fireWeapon = function(xStart:Number, yStart:Number, xEnd:Number, yEnd:Number){
+	self.line = function(options){
+		var defaults = {
+			target:{x:0,y:0},
+			start:{x:0,y:0},
+			width:1,
+			alpha:75,
+			duration:0.25,
+			frequency:15,
+			offset:15,
+			branches:3,
+			size:70,
+			tint:null
+		};
+
+		options = utils.extend({},defaults,options);
+		// console.log(options)
+
+		// effectHolder.onEnterFrame = function(){
+		var graphics = scope.game.add.graphics(options.start.x, options.start.y);
+
+		// var frames = function(){
+		graphics.clear();
+		graphics.lineStyle(options.width, options.tint, options.alpha/100);
+
+		var distance = Number(Math.sqrt(Math.pow(options.target.x,2)+Math.pow(options.target.y,2)).toFixed(2));
+		// console.log(distance)
+
+		var steps = distance/options.frequency;
+
+		var angle = Math.atan2(options.target.y, options.target.x);
+		var pixels = distance/steps;
+
+		// var initPos = {
+		// 	x:spell.x+d*Math.sin((a-(ax*(Math.PI/180)))+(Math.PI/2)),
+		// 	y:spell.y-d*Math.cos((a-(ax*(Math.PI/180)))+(Math.PI/2))
+		// }
+
+		for (var j=0;j<options.branches;j++){
+			// graphics.moveTo(options.start.x,options.start.y);
+			// graphics.moveTo(options.start.x,options.start.y);
+			graphics.moveTo(0,0);
+
+			for (var i=1;i<(steps+1);i++){
+				var currentPos = pixels*i;
+
+				var randomOffset = utils.rand(0,options.offset-(options.offset/2));
+
+				graphics.lineTo(
+					Math.cos(angle)*currentPos+Math.cos(angle+1.55)*randomOffset,
+					Math.sin(angle)*currentPos+Math.sin(angle+1.55)*randomOffset
+				);
+
+				// graphics.lineTo(
+				// 	Math.cos(angle)*currentPos+Math.cos(angle+1.55)*randomOffset,
+				// 	Math.sin(angle)*currentPos+Math.sin(angle+1.55)*randomOffset
+				// );
+			}
+		}
+		// }
+
+		// graphics.lineTo(options.target.x,options.target.y);
+
+		setTimeout(function(){
+			graphics.destroy();
+		},options.duration*1000);
+		return graphics;
 	}
 
 	return self;
