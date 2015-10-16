@@ -1,3 +1,3 @@
 # Particles Generator
 
-on process
+made in phaser.js
