@@ -77,6 +77,7 @@ module.exports = function(scope){
 			offset:15,
 			branches:3,
 			size:70,
+			fps:24,
 			tint:null
 		};
 
@@ -87,8 +88,8 @@ module.exports = function(scope){
 		var graphics = scope.game.add.graphics(options.start.x, options.start.y);
 
 		// var frames = function(){
-		graphics.clear();
-		graphics.lineStyle(options.width, options.tint, options.alpha/100);
+		// graphics.clear();
+
 
 		var distance = Number(Math.sqrt(Math.pow(options.target.x,2)+Math.pow(options.target.y,2)).toFixed(2));
 		// console.log(distance)
@@ -103,32 +104,33 @@ module.exports = function(scope){
 		// 	y:spell.y-d*Math.cos((a-(ax*(Math.PI/180)))+(Math.PI/2))
 		// }
 
-		for (var j=0;j<options.branches;j++){
-			// graphics.moveTo(options.start.x,options.start.y);
-			// graphics.moveTo(options.start.x,options.start.y);
-			graphics.moveTo(0,0);
+		var make = function(){
+			graphics.clear();
+			graphics.lineStyle(options.width, options.tint, options.alpha/100);
+			for (var j=0;j<options.branches;j++){
+				// graphics.moveTo(options.start.x,options.start.y);
+				// graphics.moveTo(options.start.x,options.start.y);
+				graphics.moveTo(0,0);
 
-			for (var i=1;i<(steps+1);i++){
-				var currentPos = pixels*i;
+				for (var i=1;i<(steps+1);i++){
+					var currentPos = pixels*i;
 
-				var randomOffset = utils.rand(0,options.offset-(options.offset/2));
+					var randomOffset = utils.rand(0,options.offset-(options.offset/2));
 
-				graphics.lineTo(
-					Math.cos(angle)*currentPos+Math.cos(angle+1.55)*randomOffset,
-					Math.sin(angle)*currentPos+Math.sin(angle+1.55)*randomOffset
-				);
-
-				// graphics.lineTo(
-				// 	Math.cos(angle)*currentPos+Math.cos(angle+1.55)*randomOffset,
-				// 	Math.sin(angle)*currentPos+Math.sin(angle+1.55)*randomOffset
-				// );
+					graphics.lineTo(
+						Math.cos(angle)*currentPos+Math.cos(angle+1.55)*randomOffset,
+						Math.sin(angle)*currentPos+Math.sin(angle+1.55)*randomOffset
+					);
+				}
 			}
 		}
-		// }
 
-		// graphics.lineTo(options.target.x,options.target.y);
+		make();
+		if(options.fps) var frames = setInterval(make,1000/options.fps);
+
 
 		setTimeout(function(){
+			if(options.fps) clearInterval(frames);
 			graphics.destroy();
 		},options.duration*1000);
 		return graphics;

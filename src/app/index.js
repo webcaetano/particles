@@ -48,7 +48,6 @@ scope.game.state.add('game', {
 			stage.pointer.bkg.angle = -Math.atan2(stage.pointer.x-game.input.x, stage.pointer.y-game.input.y)*(180/Math.PI);
 		},1000/scope.fps)
 
-
 		game.input.onUp.add(function(){
 			var particles = effects.particles({
 				target:{x:game.input.x,y:game.input.y},
